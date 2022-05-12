@@ -1,6 +1,8 @@
 ﻿using ASP.Net_Core_May_2022.Data.MockRepos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASP.Net_Core_May_2022.Controllers
 {
@@ -12,6 +14,22 @@ namespace ASP.Net_Core_May_2022.Controllers
         {
             return View(_productRepo.GetAll());
         }
+
+        public List<string> GetProductsByVendorId(int? id)
+        {
+            var res = _productRepo.GetAll()
+                .Where(p => p.V_code == id)
+                .Select(o => $"{o.P_code}: {o.P_descript} -${o.P_Price}<br> ")
+                .ToList();
+
+            if (res == null || res.Count == 0)
+            {
+                return new List<string>() { "No Product found" };
+            }
+
+            return res;
+        }
+
 
         // GET: ProductController/Details/5
         public ActionResult Details(int id)

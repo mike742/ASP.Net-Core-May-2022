@@ -43,7 +43,11 @@
                 @Html.DisplayFor(modelItem => item.V_code)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.V_name)
+                <span style="cursor: pointer; color: blue; text-decoration:underline"
+                      data-toggle="modal" data-target="#exampleModal"
+                      onclick="onClickHandler('@item.V_code', '@item.V_name')">    
+                    @Html.DisplayFor(modelItem => item.V_name)
+                </span>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.V_contact)
@@ -69,3 +73,37 @@
 }
     </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function onClickHandler(code, name) {
+        $("#exampleModalLabel").html(name + "'s products:");
+        console.log("func called: ", code, name);
+
+        let url = '@Url.Action("GetProductsByVendorId", "Product")' + '/' + code;
+        
+        $.get(url, function(data) {
+            console.log('data', data);
+            $('.modal-body').html(data);
+        })
+    }
+</script>
