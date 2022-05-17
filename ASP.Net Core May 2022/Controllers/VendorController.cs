@@ -1,4 +1,5 @@
 ﻿using ASP.Net_Core_May_2022.Data.MockRepos;
+using ASP.Net_Core_May_2022.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace ASP.Net_Core_May_2022.Controllers
 {
     public class VendorController : Controller
     {
-        private VendorMockRepo _vendorRepo = new VendorMockRepo();
+        private readonly VendorMockRepo _vendorRepo = new VendorMockRepo();
         
         // GET: VendorController
         public ActionResult Index()
@@ -32,10 +33,11 @@ namespace ASP.Net_Core_May_2022.Controllers
         // POST: VendorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Vendor collection)
         {
             try
             {
+                _vendorRepo.Create(collection);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -1,11 +1,12 @@
 ﻿using ASP.Net_Core_May_2022.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ASP.Net_Core_May_2022.Data.MockRepos
 {
     public class VendorMockRepo
     {
-        private List<Vendor> _vendors = new List<Vendor>
+        private static List<Vendor> _vendors = new List<Vendor>
         {
             new Vendor { V_code = 21225, V_name = "Bryson, Inc",    V_contact = "Smithson",  V_AreaCode = 615, V_phone = "223-3234", V_state = "TN", V_order = "Y" },
             new Vendor { V_code = 21226, V_name = "SuperLoo, Inc",  V_contact = "Flushing",  V_AreaCode = 904, V_phone = "215-8995", V_state = "FL", V_order = "N" },
@@ -22,6 +23,13 @@ namespace ASP.Net_Core_May_2022.Data.MockRepos
         public List<Vendor> GetAll()
         {
             return _vendors;
+        }
+
+        public void Create(Vendor vendor)
+        {
+            int maxCode = _vendors.Max(v => v.V_code);
+            vendor.V_code = maxCode + 1;
+            _vendors.Add(vendor);
         }
     }
 }
