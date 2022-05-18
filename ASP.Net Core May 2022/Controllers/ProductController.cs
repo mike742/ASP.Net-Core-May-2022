@@ -1,6 +1,7 @@
 ﻿using ASP.Net_Core_May_2022.Data.MockRepos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +10,8 @@ namespace ASP.Net_Core_May_2022.Controllers
     public class ProductController : Controller
     {
         private readonly ProductMockRepo _productRepo = new ProductMockRepo();
+        private readonly VendorMockRepo _vendorRepo = new VendorMockRepo();
+
         // GET: ProductController
         public ActionResult Index()
         {
@@ -40,6 +43,8 @@ namespace ASP.Net_Core_May_2022.Controllers
         // GET: ProductController/Create
         public ActionResult Create()
         {
+            ViewBag.Vendors = 
+                new SelectList(_vendorRepo.GetAll(), "V_code", "V_name");
             return View();
         }
 

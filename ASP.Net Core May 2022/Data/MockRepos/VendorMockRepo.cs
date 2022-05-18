@@ -25,6 +25,33 @@ namespace ASP.Net_Core_May_2022.Data.MockRepos
             return _vendors;
         }
 
+        public Vendor GetById(int id) 
+        {
+            var res =_vendors.Find(v => v.V_code == id);
+            return res;
+        }
+
+        public void Delete(int id)
+        {
+            var res = _vendors.Find(v => v.V_code == id);
+            _vendors.Remove(res);
+        }
+
+        public void Update(int id, Vendor vendor)
+        {
+            var res = _vendors.Find(v => v.V_code == id);
+
+            if (res != null)
+            {
+                res.V_phone = vendor.V_phone;
+                res.V_state = vendor.V_state;
+                res.V_contact = vendor.V_contact;
+                res.V_name = vendor.V_name;
+                res.V_AreaCode = vendor.V_AreaCode;
+                res.V_order = vendor.V_order;
+            }
+        }
+
         public void Create(Vendor vendor)
         {
             int maxCode = _vendors.Max(v => v.V_code);

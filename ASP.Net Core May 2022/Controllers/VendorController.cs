@@ -21,7 +21,7 @@ namespace ASP.Net_Core_May_2022.Controllers
         // GET: VendorController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_vendorRepo.GetById(id));
         }
 
         // GET: VendorController/Create
@@ -49,16 +49,17 @@ namespace ASP.Net_Core_May_2022.Controllers
         // GET: VendorController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_vendorRepo.GetById(id));
         }
 
         // POST: VendorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Vendor updated)
         {
             try
             {
+                _vendorRepo.Update(id, updated);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -80,6 +81,7 @@ namespace ASP.Net_Core_May_2022.Controllers
         {
             try
             {
+                _vendorRepo.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
