@@ -1,10 +1,11 @@
-﻿using ASP.Net_Core_May_2022.Models;
+﻿using ASP.Net_Core_May_2022.Data.Interfaces;
+using ASP.Net_Core_May_2022.Models;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ASP.Net_Core_May_2022.Data.MockRepos
 {
-    public class VendorMockRepo
+    public class VendorMockRepo : IVendorRepo
     {
         private static List<Vendor> _vendors = new List<Vendor>
         {

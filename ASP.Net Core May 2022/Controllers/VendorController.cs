@@ -1,4 +1,5 @@
-﻿using ASP.Net_Core_May_2022.Data.MockRepos;
+﻿using ASP.Net_Core_May_2022.Data.Interfaces;
+using ASP.Net_Core_May_2022.Data.MockRepos;
 using ASP.Net_Core_May_2022.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,13 @@ namespace ASP.Net_Core_May_2022.Controllers
 {
     public class VendorController : Controller
     {
-        private readonly VendorMockRepo _vendorRepo = new VendorMockRepo();
-        
+        private readonly IVendorRepo _vendorRepo; // = new VendorMockRepo();
+
+        public VendorController(IVendorRepo vendorRepo)
+        {
+            _vendorRepo = vendorRepo;
+        }
+
         // GET: VendorController
         public ActionResult Index()
         {

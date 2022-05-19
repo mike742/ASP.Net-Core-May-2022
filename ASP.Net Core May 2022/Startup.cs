@@ -1,6 +1,11 @@
+using ASP.Net_Core_May_2022.Data;
+using ASP.Net_Core_May_2022.Data.Interfaces;
+using ASP.Net_Core_May_2022.Data.MockRepos;
+using ASP.Net_Core_May_2022.Data.MySqlRepo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +29,14 @@ namespace ASP.Net_Core_May_2022
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<AppDbContext>(op => {
+                var cs = Configuration.GetConnectionString("Default");
+                op.UseMySql(cs, ServerVersion.AutoDetect(cs));
+            });
+
+            services.AddScoped<IProduct, ProductMockRepo>();
+            services.AddScoped<IVendorRepo, VendorSqlRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

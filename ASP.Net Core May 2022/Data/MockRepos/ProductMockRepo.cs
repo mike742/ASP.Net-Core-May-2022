@@ -1,12 +1,13 @@
-﻿using ASP.Net_Core_May_2022.Models;
+﻿using ASP.Net_Core_May_2022.Data.Interfaces;
+using ASP.Net_Core_May_2022.Models;
 using System;
 using System.Collections.Generic;
 
 namespace ASP.Net_Core_May_2022.Data.MockRepos
 {
-    public class ProductMockRepo
+    public class ProductMockRepo : IProduct
     {
-        private List<Product> _products = new List<Product>()
+        private static List<Product> _products = new List<Product>()
         {
             new Product { P_code = "11GER/G1", P_descript = "Power painter, 15 psi., 3-nozzle", P_InDate = new DateTime(2017, 3,  11), P_QOH = 8  , P_Min = 5     , P_Price = 109.99  , P_Discount = 0    , V_code = 25595 },
             new Product { P_code = "13-Q2/P2", P_descript = "7.25-in pwr. saw blade",           P_InDate = new DateTime(2017, 12, 13), P_QOH = 32 , P_Min = 15    , P_Price = 14.99   , P_Discount = 0.05 , V_code = 21344 },
@@ -26,9 +27,29 @@ namespace ASP.Net_Core_May_2022.Data.MockRepos
             new Product { P_code = "WR3/TT3",  P_descript = "Steel matting, 4x8x1/6, .5 mesh",  P_InDate = new DateTime(2018, 01, 17), P_QOH = 18 , P_Min = 5     , P_Price = 119.95  , P_Discount = 0.1  , V_code = 25595 },
         };
 
+        public void Create(Product vendor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Product> GetAll()
         {
             return _products;
+        }
+
+        public Product GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int id, Product vendor)
+        {
+            throw new NotImplementedException();
         }
     }
 }

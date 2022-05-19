@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ASP.Net_Core_May_2022.Models
 {
     public class Vendor
     {
+        [Key]
         [DisplayName("Code")]
         public int V_code { get; set; }
         [DisplayName("Name")]
